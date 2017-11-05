@@ -1,0 +1,22 @@
+{
+  "name": "good-vibrations",
+  "version": "0.0.0",
+  "description": "A component that uses the Vibration API in browsers that support it",
+  "keywords": [
+    "vibration-api",
+    "polymer",
+    "web-component"
+  ],
+  "ignore": [],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "^1.0.0",
+    "paper-button": "^2.0.0"
+  },
+  "main": [
+    "good-vibrations.html"
+  ]
+}

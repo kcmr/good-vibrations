@@ -1,0 +1,74 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<!--
+`<good-vibrations>` uses the Vibration API to emit vibrations in browsers that support it.
+
+Example:
+```html
+<good-vibrations vibrate duration="100"></good-vibrations>
+```
+
+@customElement
+@polymer
+@demo demo/index.html
+-->
+
+<script>
+  class GoodVibrations extends Polymer.Element {
+    static get is() {
+      return 'good-vibrations';
+    }
+
+    static get properties() {
+      return {
+        /**
+         * Set to true to vibrate for the specified duration.
+         */
+        vibrate: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
+        /**
+         * Duration time in milliseconds.
+         * Can be an array or a single number.
+         */
+        duration: {
+          type: Array,
+          value: function() {
+            return [ 20 ];
+          }
+        }
+      };
+    }
+
+    static get observers() {
+      return [
+        '_vibrateChanged(vibrate, duration)'
+      ];
+    }
+
+    get _vibrationSupported() {
+      return 'vibrate' in window.navigator;
+    }
+
+    _vibrateChanged(vibrate, duration) {
+      if (this._vibrationSupported && vibrate) {
+        window.navigator.vibrate(duration);
+        this.vibrate = false;
+      }
+    }
+
+    /**
+     * Cancels any running vibration.
+     */
+    cancel() {
+      if (this._vibrationSupported) {
+        window.navigator.vibrate(0);
+      }
+    }
+  }
+
+  customElements.define(GoodVibrations.is, GoodVibrations);
+</script>

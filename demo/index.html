@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Demo good-vibrations</title>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+    <link rel="import" href="../../paper-styles/paper-styles.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../good-vibrations.html">
+    <style>
+      body {
+        background-color: #f0f0f0;
+        text-align: center;
+        padding: 20px;
+      }
+      paper-button {
+        background-color: #fff;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <dom-bind>
+      <template>
+        <good-vibrations vibrate="{{vibrate}}"></good-vibrations>
+        <paper-button raised toggles active="{{vibrate}}">Vibrate for 20 miliseconds (default)</paper-button>
+
+        <good-vibrations vibrate="{{vibrate1}}" duration="1000"></good-vibrations>
+        <paper-button raised toggles active="{{vibrate1}}">Vibrate for 1 second</paper-button>
+
+        <good-vibrations vibrate="{{vibrate2}}" duration='[100,200,50,100,50,100,100,200,200,400,100,200,200]'></good-vibrations>
+        <paper-button raised toggles active="{{vibrate2}}">Custom vibration interval</paper-button>
+
+        <paper-button raised onclick="document.querySelector('good-vibrations').cancel();">Cancel any running vibration</paper-button>
+      </template>
+    </dom-bind>
+  </body>
+</html>
