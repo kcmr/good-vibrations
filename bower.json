@@ -1,6 +1,6 @@
 {
   "name": "good-vibrations",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A component that uses the Vibration API in browsers that support it",
   "keywords": [
     "vibration-api",
