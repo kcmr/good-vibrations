@@ -1,6 +1,6 @@
 {
   "name": "good-vibrations",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "colors": "^1.1.2",
