@@ -1,11 +1,16 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <!--
-`<good-vibrations>` uses the Vibration API to emit vibrations in browsers that support it.
+`<good-vibrations>` uses the [Vibration API](https://developer.mozilla.org/docs/Web/API/Vibration_API) to emit vibrations in browsers that support it.
 
 Example:
 ```html
 <good-vibrations vibrate duration="100"></good-vibrations>
+```
+
+Example with vibration / silence intervals:
+```html
+<good-vibrations vibrate duration="100,200,50,100,50,100,100,200,200,400,100,200,200"></good-vibrations>
 ```
 
 @customElement
@@ -33,6 +38,7 @@ Example:
         /**
          * Duration time in milliseconds.
          * Can be a single value or a list of values separated by commas representing vibration and silence intervals.
+         * Check out the Vibration API for more information. (https://developer.mozilla.org/docs/Web/API/Vibration_API)
          */
         duration: {
           type: String,

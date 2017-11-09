@@ -32,7 +32,7 @@
     <dom-bind>
       <template>
         <template is="dom-if" if="[[!apiSupported]]">
-          <p class="error">Your browser doesn't support <a href="">Vibration API</a></p>
+          <p class="error">Your browser doesn't support <a href="https://developer.mozilla.org/docs/Web/API/Vibration_API">Vibration API</a></p>
         </template>
 
         <good-vibrations duration="[[duration]]" vibration-supported="{{apiSupported}}"></good-vibrations>
