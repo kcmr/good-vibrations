@@ -11,29 +11,41 @@
     <link rel="import" href="../good-vibrations.html">
     <style>
       body {
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
         background-color: #f0f0f0;
         text-align: center;
-        padding: 20px;
+        padding: 0 20px;
       }
       paper-button {
         background-color: #fff;
         margin-bottom: 20px;
+      }
+      .error {
+        background-color: #FFD3D4;
+        color: #D7151A;
+        border: 1px solid currentColor;
+        padding: 10px;
       }
     </style>
   </head>
   <body>
     <dom-bind>
       <template>
-        <good-vibrations vibrate="{{vibrate}}"></good-vibrations>
-        <paper-button raised toggles active="{{vibrate}}">Vibrate for 20 miliseconds (default)</paper-button>
+        <template is="dom-if" if="[[!apiSupported]]">
+          <p class="error">Your browser doesn't support <a href="">Vibration API</a></p>
+        </template>
 
-        <good-vibrations vibrate="{{vibrate1}}" duration="1000"></good-vibrations>
-        <paper-button raised toggles active="{{vibrate1}}">Vibrate for 1 second</paper-button>
+        <good-vibrations duration="[[duration]]" vibration-supported="{{apiSupported}}"></good-vibrations>
 
-        <good-vibrations vibrate="{{vibrate2}}" duration='[100,200,50,100,50,100,100,200,200,400,100,200,200]'></good-vibrations>
-        <paper-button raised toggles active="{{vibrate2}}">Custom vibration interval</paper-button>
+        <label for="duration">Vibrate for</label>
+        <select name="duration" id="duration" value="{{duration::change}}">
+          <option value="20">20 milliseconds (default)</option>
+          <option value="1000">1 second</option>
+          <option value="100,200,50,100,50,100,100,200,200,400,100,200,200">Custom interval</option>
+        </select>
 
-        <paper-button raised onclick="document.querySelector('good-vibrations').cancel();">Cancel any running vibration</paper-button>
+        <button onclick="document.querySelector('good-vibrations').vibrate = true;">Vibrate!</button>
+        <button onclick="document.querySelector('good-vibrations').cancel();">Cancel vibration</button>
       </template>
     </dom-bind>
   </body>

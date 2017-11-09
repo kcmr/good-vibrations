@@ -32,13 +32,16 @@ Example:
 
         /**
          * Duration time in milliseconds.
-         * Can be an array or a single number.
+         * Can be a single value or a list of values separated by commas representing vibration and silence intervals.
          */
         duration: {
+          type: String,
+          value: '20'
+        },
+
+        _duration: {
           type: Array,
-          value: function() {
-            return [ 20 ];
-          }
+          computed: '_computeDuration(duration)'
         },
 
         _method: {
@@ -60,8 +63,12 @@ Example:
 
     static get observers() {
       return [
-        '_vibrateChanged(vibrate, duration)'
+        '_vibrateChanged(vibrate, _duration)'
       ];
+    }
+
+    _computeDuration(duration) {
+      return Array.isArray(duration) ? duration : String(duration).split(',');
     }
 
     _getApiSupport(method) {

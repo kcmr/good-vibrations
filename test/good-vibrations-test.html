@@ -39,7 +39,7 @@
       });
 
       test('setting "vibrate" to true does not call navigator.vibrate if the browser does not support it', () => {
-        el._method = 'not-supported';
+        el._method = 'not-supported'; // using a private property for testing purposes
         el.vibrate = true;
         assert.isFalse(vibrationStub.called);
       });
