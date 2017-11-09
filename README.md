@@ -1,5 +1,7 @@
 # &lt;good-vibrations&gt;
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/kcmr/good-vibrations)
+
 > `<good-vibrations>` is a component meant to be used as a singleton, that uses the [Vibration API](https://developer.mozilla.org/docs/Web/API/Vibration_API) to emit vibrations in browsers that support it.   
 __[&lt;good-vibrations&gt; demo](http://kcmr.github.io/good-vibrations/)__
 
