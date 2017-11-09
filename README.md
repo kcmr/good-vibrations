@@ -4,6 +4,23 @@
 
 ![](good-vibrations.png)
 
+## Installation and import
+
+Install the component using [Bower](http://bower.io/):
+
+```bash
+$ bower i -S good-vibrations
+```
+
+Import Web Components loader (optional) and the component:
+
+```html
+<script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+<link rel="import" href="bower_components/good-vibrations/good-vibrations.html"> 
+```
+
+## Usage
+
 __Example:__
 ```html
 <good-vibrations vibrate duration="100"></good-vibrations>
