@@ -5,11 +5,15 @@ const {spawn} = require('child_process');
 const browserSync = require('browser-sync');
 const colors = require('colors');
 const component = path.basename(process.cwd());
-const browserSyncConfig = require('./browsersync-config');
-const browserSyncServerConfig = JSON.parse(JSON.stringify(browserSyncConfig.server).replace(/{{component}}/g, component));
+const args = require('minimist')(process.argv.slice(2));
+
+const config = require('./config');
+const browserSyncServerConfig = JSON.parse(JSON.stringify(config.server).replace(/{{component}}/g, component));
+const lintConfig = config.lint.sources;
+lintConfig.push(args.fix || config.lint.fix === true ? '--fix' : '');
 
 function runEslint(cb) {
-  const lint = spawn('npm', ['run', 'lint']);
+  const lint = spawn('eslint', lintConfig);
   let output;
   lint.stdout.on('data', data => {
     output = data.toString();
@@ -24,7 +28,11 @@ function runEslint(cb) {
 
 browserSync
   .init(browserSyncServerConfig)
-  .watch(browserSyncConfig.sources)
+  .watch(config.watch.sources)
   .on('change', () => {
-    runEslint(browserSync.reload);
+    if (args.lint || config.watch.lint === true) {
+      runEslint(browserSync.reload);
+    } else {
+      browserSync.reload();
+    }
   });

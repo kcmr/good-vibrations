@@ -1,7 +1,18 @@
 {
-  "sources": [
-    "**/*.{html,js}"
-  ],
+  "lint": {
+    "fix": true,
+    "sources": [
+      "*.{html,js}",
+      "tasks/*.js",
+      "test/*.html"
+    ]
+  },
+  "watch": {
+    "lint": true,
+    "sources": [
+      "**/*.{html,js}"
+    ]
+  },
   "server": {
     "server": {
       "baseDir": ".",
