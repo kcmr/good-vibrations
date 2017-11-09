@@ -1,28 +1,8 @@
 'use strict';
 
+const {spawn} = require('child_process');
 const browserSync = require('browser-sync');
-const {CLIEngine} = require('eslint');
-
-function linterOutput(success, formatter, report) {
-  return success ? 'Lint analysis OK' : formatter(report.results);
-}
-
-function linterExecute() {
-  const config = { configFile: './.eslintrc'};
-  const executeOnFiles = ['*.html', 'test/*.html', 'demo/**'];
-  const engine = new CLIEngine(config);
-  const report = engine.executeOnFiles(executeOnFiles);
-  const whichFormatter = config.formatter || 'stylish';
-  const formatter = engine.getFormatter(whichFormatter);
-  const success = report.errorCount + report.warningCount === 0;
-  const output = linterOutput(success, formatter, report);
-
-  return {
-    success,
-    output,
-    report
-  };
-}
+const colors = require('colors');
 
 const browserSyncConfig = {
   sources: [
@@ -45,10 +25,23 @@ const browserSyncConfig = {
   }
 };
 
+function runEslint(cb) {
+  const lint = spawn('npm', ['run', 'lint']);
+  let output;
+  lint.stdout.on('data', data => {
+    output = data.toString();
+  });
+  lint.on('exit', code => {
+    if (code) {
+      console.log(colors.red(output));
+    }
+  });
+  lint.on('close', cb);
+}
+
 browserSync
   .init(browserSyncConfig.server)
   .watch(browserSyncConfig.sources)
-  .on('change', function() {
-    const result = linterExecute();
-    console.log(result.output);
+  .on('change', () => {
+    runEslint(browserSync.reload);
   });

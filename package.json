@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "devDependencies": {
     "browser-sync": "^2.18.13",
+    "colors": "^1.1.2",
     "eslint": "^4.10.0",
     "eslint-plugin-html": "^3.2.2"
   },
   "scripts": {
-    "serve": "node tasks/serve"
+    "serve": "node tasks/serve",
+    "lint": "eslint *.{html,js} tasks/*.js test/*.html --fix"
   }
 }
