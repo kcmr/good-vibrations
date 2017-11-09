@@ -2,7 +2,7 @@
 
 > `<good-vibrations>` is a component meant to be used as a singleton, that uses the [Vibration API](https://developer.mozilla.org/docs/Web/API/Vibration_API) to emit vibrations in browsers that support it.
 
-<p aligh="center">
+<p style="text-align: center;">
   <a href="http://kcmr.github.io/good-vibrations/"><img src="https://raw.githubusercontent.com/kcmr/good-vibrations/master/good-vibrations.png" alt="Live demo"></a>
 </p>
 
