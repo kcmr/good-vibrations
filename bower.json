@@ -1,6 +1,9 @@
 {
   "name": "good-vibrations",
   "version": "1.0.0",
+  "authors": [
+    "Kus Cámara"
+  ],
   "description": "A component that uses the Vibration API in browsers that support it",
   "keywords": [
     "vibration-api",
@@ -21,5 +24,10 @@
   },
   "main": [
     "good-vibrations.html"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kcmr/good-vibrations.git"
+  },
+  "homepage": "https://github.com/kcmr/good-vibrations/"
 }
