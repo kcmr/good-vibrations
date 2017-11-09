@@ -6,20 +6,66 @@
     <title>Demo good-vibrations</title>
     <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-    <link rel="import" href="../../paper-styles/paper-styles.html">
-    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../code-sample/themes/one-dark.html">
+    <link rel="import" href="../../code-sample/code-sample.html">
     <link rel="import" href="../good-vibrations.html">
     <style>
+      html {
+        --code-sample-font-family: Consolas, Monaco, Menlo, monospace;
+      }
+
       body {
         font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
         background-color: #f0f0f0;
-        text-align: center;
         padding: 0 20px;
       }
-      paper-button {
-        background-color: #fff;
-        margin-bottom: 20px;
+
+      .wrapper {
+        text-align: center;
+        max-width: 400px;
+        margin: 20px auto;
       }
+
+      code-sample {
+        max-width: 800px;
+        margin: auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      select,
+      button {
+        font: inherit;
+      }
+
+      select {
+        height: 40px;
+        padding: 0 10px;
+        width: 100%;
+        background-color: #fff;
+      }
+
+      .actions {
+        margin-top: 20px;
+      }
+
+      button {
+        border: none;
+        padding: 10px;
+        color: #fff;
+      }
+
+      .positive {
+        background-color: rgb(3, 59, 143);
+      }
+
+      .negative {
+        background-color: rgb(199, 23, 23);
+      }
+
       .error {
         background-color: #FFD3D4;
         color: #D7151A;
@@ -31,22 +77,47 @@
   <body>
     <dom-bind>
       <template>
-        <template is="dom-if" if="[[!apiSupported]]">
-          <p class="error">Your browser doesn't support <a href="https://developer.mozilla.org/docs/Web/API/Vibration_API">Vibration API</a></p>
-        </template>
-
         <good-vibrations duration="[[duration]]" vibration-supported="{{apiSupported}}"></good-vibrations>
+        <p class="error" hidden="[[apiSupported]]">Your browser doesn't support <a href="https://developer.mozilla.org/docs/Web/API/Vibration_API">Vibration API</a></p>
 
-        <label for="duration">Vibrate for</label>
-        <select name="duration" id="duration" value="{{duration::change}}">
-          <option value="20">20 milliseconds (default)</option>
-          <option value="1000">1 second</option>
-          <option value="100,200,50,100,50,100,100,200,200,400,100,200,200">Custom interval</option>
-        </select>
+        <div class="wrapper">
+          <label for="duration">Vibrate for…</label>
+          <select name="duration" id="duration" value="{{duration::change}}">
+            <option value="20">20 milliseconds (default)</option>
+            <option value="1000">1 second</option>
+            <option value="100,200,50,100,50,100,100,200,200,400,100,200,200">Custom interval</option>
+          </select>
 
-        <button onclick="document.querySelector('good-vibrations').vibrate = true;">Vibrate!</button>
-        <button onclick="document.querySelector('good-vibrations').mute = true;">Cancel vibration</button>
+          <div class="actions">
+            <button class="positive" onclick="document.querySelector('good-vibrations').vibrate = true;">Vibrate!</button>
+            <button class="negative" onclick="document.querySelector('good-vibrations').mute = true;">Cancel vibration</button>
+          </div>
+        </div>
       </template>
     </dom-bind>
+
+    <code-sample>
+      <template>
+        <good-vibrations duration="[[duration]]" vibration-supported="{{apiSupported}}"></good-vibrations>
+
+        <template is="dom-if" if="[[!apiSupported]]">
+          <p class="error">Your browser doesn't support <a href="https://developer.mozilla.org/docs/Web/API/Vibration_API">Vibration API</a> </p>
+        </template>
+
+        <div class="wrapper">
+          <label for="duration">Vibrate for…</label>
+          <select name="duration" id="duration" value="{{duration::change}}">
+            <option value="20">20 milliseconds (default)</option>
+            <option value="1000">1 second</option>
+            <option value="100,200,50,100,50,100,100,200,200,400,100,200,200">Custom interval</option>
+          </select>
+
+          <div class="actions">
+            <button class="positive" onclick="document.querySelector('good-vibrations').vibrate = true;">Vibrate!</button>
+            <button class="negative" onclick="document.querySelector('good-vibrations').mute = true;">Cancel vibration</button>
+          </div>
+        </div>
+      </template>
+    </code-sample>
   </body>
 </html>

@@ -7,14 +7,17 @@
     "polymer",
     "web-component"
   ],
-  "ignore": [],
+  "ignore": [
+    "*.png",
+    "/test/"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0",
     "webcomponentsjs": "^1.0.0",
-    "paper-button": "^2.0.0"
+    "code-sample": "^0.4.1"
   },
   "main": [
     "good-vibrations.html"
