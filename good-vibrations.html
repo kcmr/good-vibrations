@@ -39,6 +39,21 @@ Example:
           value: function() {
             return [ 20 ];
           }
+        },
+
+        _method: {
+          type: String,
+          value: 'vibrate'
+        },
+
+        /**
+         * Returns the Vibration API support.
+         */
+        vibrationSupported: {
+          type: Boolean,
+          notify: true,
+          readOnly: true,
+          computed: '_getApiSupport(_method)'
         }
       };
     }
@@ -49,13 +64,13 @@ Example:
       ];
     }
 
-    get _vibrationSupported() {
-      return 'vibrate' in window.navigator;
+    _getApiSupport(method) {
+      return method in window.navigator;
     }
 
     _vibrateChanged(vibrate, duration) {
-      if (this._vibrationSupported && vibrate) {
-        window.navigator.vibrate(duration);
+      if (this.vibrationSupported && vibrate) {
+        window.navigator[this._method](duration);
         this.vibrate = false;
       }
     }
@@ -64,8 +79,8 @@ Example:
      * Cancels any running vibration.
      */
     cancel() {
-      if (this._vibrationSupported) {
-        window.navigator.vibrate(0);
+      if (this.vibrationSupported) {
+        window.navigator[this._method](0);
       }
     }
   }

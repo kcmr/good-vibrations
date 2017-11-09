@@ -14,14 +14,46 @@
   </test-fixture>
 
   <script>
-    suite('<good-vibrations>', function() {
-      var el;
+    suite('<good-vibrations>', () => {
+      let el;
+      let vibrationStub;
 
-      setup(function() {
+      setup(() => {
         el = fixture('default');
+        vibrationStub = sinon.stub(window.navigator, 'vibrate');
       });
 
-      test('...');
+      teardown(() => {
+        vibrationStub.restore();
+      });
+
+      test('setting "vibrate" to true calls navigator.vibrate for the specified "duration" if the browser supports it', () => {
+        el.duration = 10;
+        el.vibrate = true;
+        assert.equal(vibrationStub.getCall(0).args[0], el.duration);
+      });
+
+      test('"vibrate" is reseted to false after a vibration', () => {
+        el.vibrate = true;
+        assert.isFalse(el.vibrate);
+      });
+
+      test('setting "vibrate" to true does not call navigator.vibrate if the browser does not support it', () => {
+        el._method = 'not-supported';
+        el.vibrate = true;
+        assert.isFalse(vibrationStub.called);
+      });
+
+      test('cancel() method cancels any running vibration', () => {
+        el.cancel();
+        assert.equal(vibrationStub.getCall(0).args[0], 0, 'navigator.vibrate is called with 0 as param');
+      });
+
+      test('cancel() method does not call navigator.vibrate if the browser does not support it', () => {
+        el._method = 'not-supported';
+        el.cancel();
+        assert.isFalse(vibrationStub.called);
+      });
     });
   </script>
 </body>
