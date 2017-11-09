@@ -2,7 +2,7 @@
 
 > `<good-vibrations>` is a component meant to be used as a singleton, that uses the [Vibration API](https://developer.mozilla.org/docs/Web/API/Vibration_API) to emit vibrations in browsers that support it.
 
-<center>![](good-vibrations.png)</center>
+![](good-vibrations.png)
 
 __Example:__
 ```html
