@@ -54,6 +54,13 @@
         el.cancel();
         assert.isFalse(vibrationStub.called);
       });
+
+      test('setting "mute" to true cancels any running vibration', () => {
+        let cancelSpy = sinon.spy(el, 'cancel');
+        el.mute = true;
+        assert.isTrue(cancelSpy.calledOnce);
+        assert.isFalse(el.mute, 'mute property is reseted to false');
+      });
     });
   </script>
 </body>
