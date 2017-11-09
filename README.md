@@ -55,3 +55,13 @@ __Get Vibration API support:__
   <p>Vibration API not supported</p>
 </template>
 ```
+
+## Development
+
+browserSync and eslint support.   
+`eslint` and `eslint --fix` are enabled by default. Edit tasks/config.json to change the default configuration.
+
+1. Install npm dependencies: `npm install`
+2. Launch the component's demo: `npm run serve`
+
+
