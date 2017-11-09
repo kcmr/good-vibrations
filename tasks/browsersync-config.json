@@ -1,0 +1,20 @@
+{
+  "sources": [
+    "**/*.{html,js}"
+  ],
+  "server": {
+    "server": {
+      "baseDir": ".",
+      "index": "index.html",
+      "routes": {
+        "/components/{{component}}/": ".",
+        "/components": "bower_components"
+      }
+    },
+    "open": false,
+    "ghostMode": false,
+    "ui": false,
+    "reloadOnRestart": true,
+    "startPath": "components/{{component}}/demo/index.html"
+  }
+}

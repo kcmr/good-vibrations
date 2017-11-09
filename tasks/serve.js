@@ -1,29 +1,12 @@
 'use strict';
 
+const path = require('path');
 const {spawn} = require('child_process');
 const browserSync = require('browser-sync');
 const colors = require('colors');
-
-const browserSyncConfig = {
-  sources: [
-    '**/*.{html,js}'
-  ],
-  server: {
-    server: {
-      baseDir: '.',
-      index: 'index.html',
-      routes: {
-        '/components/good-vibrations/': '.',
-        '/components': 'bower_components'
-      }
-    },
-    open: false,
-    ghostMode: false,
-    ui: false,
-    reloadOnRestart: true,
-    startPath: 'components/good-vibrations/demo/index.html'
-  }
-};
+const component = path.basename(process.cwd());
+const browserSyncConfig = require('./browsersync-config');
+const browserSyncServerConfig = JSON.parse(JSON.stringify(browserSyncConfig.server).replace(/{{component}}/g, component));
 
 function runEslint(cb) {
   const lint = spawn('npm', ['run', 'lint']);
@@ -40,7 +23,7 @@ function runEslint(cb) {
 }
 
 browserSync
-  .init(browserSyncConfig.server)
+  .init(browserSyncServerConfig)
   .watch(browserSyncConfig.sources)
   .on('change', () => {
     runEslint(browserSync.reload);
