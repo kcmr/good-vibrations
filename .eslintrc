@@ -7,7 +7,6 @@
   },
   "globals": {
     "assert": false,
-    "BbvaPagejsRouting": false,
     "Polymer": false,
     "suite": false,
     "suiteSetup": false,
