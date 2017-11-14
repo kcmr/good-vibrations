@@ -19,12 +19,8 @@
       let vibrationStub;
 
       setup(() => {
+        vibrationStub = window.navigator.vibrate = sinon.stub().returns(true);
         el = fixture('default');
-        vibrationStub = sinon.stub(window.navigator, 'vibrate');
-      });
-
-      teardown(() => {
-        vibrationStub.restore();
       });
 
       test('setting "vibrate" to true calls navigator.vibrate for the specified "duration" if the browser supports it', () => {
@@ -38,18 +34,13 @@
         assert.isFalse(el.vibrate);
       });
 
-      test('setting "vibrate" to true does not call navigator.vibrate if the browser does not support it', () => {
-        el._method = 'not-supported'; // using a private property for testing purposes
-        el.vibrate = true;
-        assert.isFalse(vibrationStub.called);
-      });
-
       test('cancel() method cancels any running vibration', () => {
         el.cancel();
         assert.equal(vibrationStub.getCall(0).args[0], 0, 'navigator.vibrate is called with 0 as param');
       });
 
       test('cancel() method does not call navigator.vibrate if the browser does not support it', () => {
+        // navigator.vibrate is "supported" (stubbed) in all browsers, so we need to check for a dummy navigator method
         el._method = 'not-supported';
         el.cancel();
         assert.isFalse(vibrationStub.called);

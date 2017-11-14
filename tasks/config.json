@@ -1,6 +1,6 @@
 {
   "lint": {
-    "fix": true,
+    "fix": false,
     "sources": [
       "*.{html,js}",
       "tasks/*.js",
