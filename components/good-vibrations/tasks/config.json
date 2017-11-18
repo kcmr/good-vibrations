@@ -1,0 +1,33 @@
+{
+  "lint": {
+    "fix": false,
+    "sources": [
+      "*.{html,js}",
+      "tasks/*.js",
+      "test/*.html"
+    ]
+  },
+  "watch": {
+    "lint": true,
+    "sources": [
+      "**/*.{html,js,css}"
+    ]
+  },
+  "server": {
+    "server": {
+      "baseDir": ".",
+      "index": "index.html",
+      "routes": {
+        "/components/{{component}}/": ".",
+        "/components": "bower_components"
+      }
+    },
+    "httpModule": "http2",
+    "https": true,
+    "open": false,
+    "ghostMode": false,
+    "ui": false,
+    "reloadOnRestart": true,
+    "startPath": "components/{{component}}/demo/index.html"
+  }
+}

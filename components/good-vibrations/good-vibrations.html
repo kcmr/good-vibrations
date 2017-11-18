@@ -1,0 +1,135 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<!--
+`<good-vibrations>` is a component meant to be used as a singleton, that uses the [Vibration API](https://developer.mozilla.org/docs/Web/API/Vibration_API) to emit vibrations in browsers that support it.
+
+__Example:__
+```html
+<good-vibrations vibrate duration="100"></good-vibrations>
+```
+
+__Example with vibration / silence intervals:__
+```html
+<good-vibrations vibrate duration="100,200,50,100,50,100,100,200,200,400,100,200,200"></good-vibrations>
+```
+
+__Canceling any running vibration:__
+```js
+document.querySelector('good-vibrations').cancel();
+```
+
+Or declaratively using the boolean attribute `mute`:
+```html
+<good-vibrations mute></good-vibrations>
+```
+
+__Get Vibration API support:__
+```html
+<good-vibrations vibration-supported="{{apiSupported}}"></good-vibrations>
+
+<template is="dom-if" if="[[!apiSupported]]">
+  <p>Vibration API not supported</p>
+</template>
+```
+
+@demo demo/index.html
+-->
+
+<script>
+  class GoodVibrations extends Polymer.Element {
+    static get is() {
+      return 'good-vibrations';
+    }
+
+    static get properties() {
+      return {
+        /**
+         * Set to true to vibrate for the specified duration.
+         */
+        vibrate: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
+        /**
+         * Duration time in milliseconds.
+         * Can be a single value or a list of values separated by commas representing vibration and silence intervals.
+         * Check out the Vibration API for more information. (https://developer.mozilla.org/docs/Web/API/Vibration_API)
+         */
+        duration: {
+          type: String,
+          value: '20'
+        },
+
+        /**
+         * Cancels any running vibration.
+         */
+        mute: {
+          type: Boolean,
+          value: false,
+          observer: '_muteChanged'
+        },
+
+        _duration: {
+          type: Array,
+          computed: '_computeDuration(duration)'
+        },
+
+        _method: {
+          type: String,
+          value: 'vibrate'
+        },
+
+        /**
+         * Returns the Vibration API support.
+         */
+        vibrationSupported: {
+          type: Boolean,
+          notify: true,
+          readOnly: true,
+          computed: '_getApiSupport(_method)'
+        }
+      };
+    }
+
+    static get observers() {
+      return [
+        '_vibrateChanged(vibrate, _duration)'
+      ];
+    }
+
+    _computeDuration(duration) {
+      return Array.isArray(duration) ? duration : String(duration).split(',');
+    }
+
+    _getApiSupport(method) {
+      return method in window.navigator;
+    }
+
+    _vibrateChanged(vibrate, duration) {
+      if (this.vibrationSupported && vibrate) {
+        window.navigator[this._method](duration);
+        this.vibrate = false;
+      }
+    }
+
+    _muteChanged(mute) {
+      if (mute) {
+        this.cancel();
+      }
+    }
+
+    /**
+     * Cancels any running vibration.
+     */
+    cancel() {
+      if (this.vibrationSupported) {
+        window.navigator[this._method](0);
+        this.mute = false;
+      }
+    }
+  }
+
+  customElements.define(GoodVibrations.is, GoodVibrations);
+</script>
