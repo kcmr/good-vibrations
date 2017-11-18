@@ -10,7 +10,7 @@
   "watch": {
     "lint": true,
     "sources": [
-      "**/*.{html,js}"
+      "**/*.{html,js,css}"
     ]
   },
   "server": {
@@ -22,6 +22,8 @@
         "/components": "bower_components"
       }
     },
+    "httpModule": "http2",
+    "https": true,
     "open": false,
     "ghostMode": false,
     "ui": false,

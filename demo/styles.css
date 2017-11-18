@@ -1,0 +1,63 @@
+html {
+  --code-sample-font-family: Consolas, Monaco, Menlo, monospace;
+}
+
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 0 20px;
+}
+
+.wrapper {
+  text-align: center;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+code-sample {
+  max-width: 800px;
+  margin: auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+select,
+button {
+  font: inherit;
+}
+
+select {
+  height: 40px;
+  padding: 0 10px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+button {
+  border: none;
+  padding: 10px;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.positive {
+  background-color: #D2545B;
+}
+
+.negative {
+  background-color: #4D9CEE;
+}
+
+.error {
+  background-color: #FFD3D4;
+  color: #D7151A;
+  border: 1px solid currentColor;
+  padding: 10px;
+}
